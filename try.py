@@ -1,5 +1,5 @@
 CAPACITY = 40
-LENGTH = range(0, 26)
+LENGTH = 26
 sizes = [3, 10, 10, 1, 6, 5, 5, 4, 2, 7, 9, 9, 8, 2, 1, 5, 4, 1, 9, 8, 2, 8, 7, 3, 10, 7]
 vals = [7, 7, 16, 11, 6, 3, 1, 15, 3, 8, 3, 13, 11, 15, 8, 13, 2, 12, 14, 1, 2, 18, 9, 8, 19, 5]
 
@@ -16,7 +16,9 @@ def calculate_solution(characteristic_vector):
         curr_value += vals * characteristic_vector[i]
         curr_size += sizes * characteristic_vector[i]
         if curr_size <= CAPACITY:
-            if curr_value > b
+            if curr_value > best_value:
+                best_value = curr_value
+                best_char_vect = characteristic_vector
 
     pass
 
@@ -34,3 +36,7 @@ def permitation(characteristic_vector, current_length):
 
         characteristic_vector[current_length] = 1
         permitation(characteristic_vector, current_length - 1)
+
+
+char_vector = []
+permitation(char_vector, LENGTH)

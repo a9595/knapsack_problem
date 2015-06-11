@@ -1,11 +1,11 @@
-from itertools import compress, product
+from itertools import product
 
 __author__ = 'tieorange'
 
 # sizes = [3, 10, 10, 1, 6, 5, 5, 4, 2, 7, 9, 9, 8, 2, 1, 5, 4, 1, 9, 8, 2, 8, 7, 3, 10, 7]
 # vals = [7, 7, 16, 11, 6, 3, 1, 15, 3, 8, 3, 13, 11, 15, 8, 13, 2, 12, 14, 1, 2, 18, 9, 8, 19, 5]
-sizes = [3, 10, 10, 1, 6, 5, 5, 4, 2, 7, 9, 9, 8, 2]
-vals = [7, 7, 16, 11, 6, 3, 1, 15, 3, 8, 3, 13, 11, 15]
+sizes = [3, 10, 10, 1, 6]
+vals = [7, 7, 16, 11, 6]
 LENGTH = len(sizes)
 CAPACITY = 40
 
@@ -21,6 +21,9 @@ CAPACITY = 40
 #
 # per(3)
 
+def get_binary_string(number):
+    binary = "{:027b}".format(number)
+    return binary
 
 
 def get_char_vector(count):
@@ -54,6 +57,14 @@ def get_val_sum(tmp_list):
     return sum_val if sum_size <= CAPACITY else 0
 
 
+def calc_prices(char_vector):
+    list_values = list()
+    for idx, val in enumerate(char_vector):
+        list_values.append(calc_vector_price(val, sizes, vals))
+    print(list_values)
+    return list_values
+
+
 def print_final_set(vector):
     for idx, val in enumerate(vector):
         if val == 1:
@@ -64,13 +75,11 @@ char_vector = get_char_vector(len(sizes))
 print(char_vector)
 # calc_list_vector_price(char_vector)
 
-# calc prices
-list_values = list()
-for idx, val in enumerate(char_vector):
-    list_values.append(calc_vector_price(val, sizes, vals))
-print(list_values)
 
-# find index of max
+# calc prices
+list_values = calc_prices(char_vector)
+
+# find index of maxs
 max_idx = list_values.index(max(list_values))
 print("max_idx = ", max_idx)
 print_final_set(char_vector[max_idx])

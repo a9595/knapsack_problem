@@ -43,12 +43,12 @@ def calc_list_vector_price(vector_list):
     return prices_vector
 
 
-# def calc_vector_price(vector, sizes, values):
-#     tmp_list = list()
-#     for idx, val in enumerate(vector):
-#         if val == 1:
-#             tmp_list.append((sizes[idx], values[idx]))
-#     return get_val_sum(tmp_list)
+def calc_vector_price(vector, sizes, values):
+    tmp_list = list()
+    for idx, val in enumerate(vector):
+        if val == 1:
+            tmp_list.append((sizes[idx], values[idx]))
+    return get_val_sum(tmp_list)
 
 
 def get_val_sum(tmp_list):

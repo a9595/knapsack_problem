@@ -1,5 +1,10 @@
-sizes = [3, 10, 10, 1, 6]
-vals = [7, 7, 16, 11, 6]
+import numpy as np
+
+# sizes = [3, 10, 10, 1, 6]
+# vals = [7, 7, 16, 11, 6]
+sizes = [3, 10, 10, 1, 6, 5, 5, 4, 2, 7, 9, 9, 8, 2, 1, 5, 4, 1, 9, 8, 2, 8, 7, 3, 10, 7]
+vals = [7, 7, 16, 11, 6, 3, 1, 15, 3, 8, 3, 13, 11, 15, 8, 13, 2, 12, 14, 1, 2, 18, 9, 8, 19, 5]
+
 LENGTH = len(sizes)
 CAPACITY = 40
 
@@ -39,35 +44,32 @@ def convert_to_bin_divide_by_2(dec_number):
 
 #  [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 0].....]
 def get_char_vector_matrix():
-    char_vectors_list = list()
+    char_vectors_matrix = np.array()
     for i in range(2 ** LENGTH):
-        converted_dec_to_bin = convert_to_bin_divide_by_2(i)
-        char_vectors_list.append(converted_dec_to_bin)
-    return char_vectors_list
+        # char_vectors_matrix.append(convert_to_bin_divide_by_2(i))
+        char_vectors_matrix = np.vstack([char_vectors_matrix, convert_to_bin_divide_by_2(i)])
+
+    return char_vectors_matrix
 
 
 def calc_vector_price(vector):
-    tmp_list = list()
-    for idx, val in enumerate(vector):
-        if val == 1:
-            tmp_list.append((sizes[idx], vals[idx]))
-    return get_val_sum(tmp_list)
-
-
-def get_val_sum(tmp_list):
+    # tmp_list = list()
     sum_size = 0
     sum_val = 0
-    for i, (size, value) in enumerate(tmp_list):
-        sum_val += value
-        sum_size += size
+    for idx, val in enumerate(vector):
+        if val == 1:
+            # tmp_list.append((sizes[idx], vals[idx]))
+            sum_val += vals[idx]
+            sum_size += sizes[idx]
     return sum_val if sum_size <= CAPACITY else 0
 
 
-def calc_WHOLE_char_vector(char_vector_matrix):
-    result_values = list()
+
+def calc_whole_char_vector(char_vector_matrix):
+    result_values = [0] * LENGTH
     for vector in char_vector_matrix:
         sum_value_of_vector = calc_vector_price(vector)
-        result_values.append(sum_value_of_vector)
+        result_values[sum_value_of_vector]
     return result_values
 
 def print_the_best_vector_items(the_best_vector):
@@ -79,7 +81,7 @@ def print_the_best_vector_items(the_best_vector):
 char_vector_matrix = get_char_vector_matrix()
 print(char_vector_matrix)
 
-sum_values_list = calc_WHOLE_char_vector(char_vector_matrix)
+sum_values_list = calc_whole_char_vector(char_vector_matrix)
 print(sum_values_list)
 
 max_value = max(sum_values_list)

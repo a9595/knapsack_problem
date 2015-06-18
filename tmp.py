@@ -9,27 +9,30 @@ vals = [7, 7, 16, 11, 6]
 LENGTH = len(sizes)
 CAPACITY = 40
 
-
-
-#
-# def per(n):
-#     for index in range(1 << n):
-#         s = bin(index)[2:]
-#         s = '0' * (n - len(s)) + s
-#         print(map(int, list(s)))
-#
-#
-# per(3)
-
 def get_binary_string(number):
-    binary = "{:027b}".format(number)
+    binary = "{:0b}".format(number)
+    # print("type of binary = ", type(binary))
+    # print("binary = ", binary)
+
     return binary
 
 
+def convert_bin_to_long(binary_str):
+    integer_bin_arr = [None] * LENGTH
+    for idx in range(LENGTH):
+        try:
+            integer_bin_arr[idx] = int(binary_str[idx])
+        except:
+            integer_bin_arr[idx] = 0
+    return integer_bin_arr
+
 def get_char_vector(count):
     char_vector = list()
-    for i in product([0, 1], repeat=count):
-        char_vector.append(list(i))
+    for i in range(LENGTH-1):
+        binary_short = get_binary_string(i)
+        binary_long = convert_bin_to_long(binary_short)
+        binary_long = binary_long.reverse()
+        char_vector.append(binary_long)
     return char_vector
 
 
@@ -40,12 +43,12 @@ def calc_list_vector_price(vector_list):
     return prices_vector
 
 
-def calc_vector_price(vector, sizes, values):
-    tmp_list = list()
-    for idx, val in enumerate(vector):
-        if val == 1:
-            tmp_list.append((sizes[idx], values[idx]))
-    return get_val_sum(tmp_list)
+# def calc_vector_price(vector, sizes, values):
+#     tmp_list = list()
+#     for idx, val in enumerate(vector):
+#         if val == 1:
+#             tmp_list.append((sizes[idx], values[idx]))
+#     return get_val_sum(tmp_list)
 
 
 def get_val_sum(tmp_list):
@@ -57,12 +60,12 @@ def get_val_sum(tmp_list):
     return sum_val if sum_size <= CAPACITY else 0
 
 
-def calc_prices(char_vector):
-    list_values = list()
-    for idx, val in enumerate(char_vector):
-        list_values.append(calc_vector_price(val, sizes, vals))
-    print(list_values)
-    return list_values
+# def calc_prices(char_vector):
+#     list_values = list()
+#     for idx, val in enumerate(char_vector):
+#         list_values.append(calc_vector_price(val, sizes, vals))
+#     print(list_values)
+#     return list_values
 
 
 def print_final_set(vector):
@@ -71,13 +74,13 @@ def print_final_set(vector):
             print("#", idx, "\t", sizes[idx], vals[idx])
 
 
-char_vector = get_char_vector(len(sizes))
+char_vector = get_char_vector(len(sizes))  # [ [0, 0, 0], [0, 0, 1] ]
 print(char_vector)
 # calc_list_vector_price(char_vector)
 
 
 # calc prices
-list_values = calc_prices(char_vector)
+list_values = calc_list_vector_price(char_vector)
 
 # find index of maxs
 max_idx = list_values.index(max(list_values))

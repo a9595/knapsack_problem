@@ -7,7 +7,8 @@ LENGTH = 5
 
 def get_binary_string(number):
     binary = "{:05b}".format(number)
-    print(binary)
+    print("type of binary = ", type(binary))
+
     return binary
 
 
@@ -18,13 +19,12 @@ def get_new_char_vector():
     final_vector = list()
     tmp_vector = list()
     size = 2 ** LENGTH
-    for i in range(0, size-1):
+    for i in range(0, size - 1):
         bin_vector = get_binary_string(i)
         for element in bin_vector:
             tmp_vector.append(int(element))
         final_vector.append(tmp_vector)
     return final_vector
-
 
 
 bin_vector = get_binary_string(5)
@@ -40,5 +40,6 @@ def get_char_vector(count):
     for i in product([0, 1], repeat=count):
         char_vector.append(list(i))
     return char_vector
+
 
 print(get_char_vector(5))
